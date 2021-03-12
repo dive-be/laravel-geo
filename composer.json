@@ -1,16 +1,19 @@
 {
-    "name": "dive-be/:package_name",
-    "description": ":package_description",
+    "name": "dive-be/laravel-geo",
+    "description": "Translate IP addresses into geo locations",
     "keywords": [
         "dive",
-        ":package_name"
+        "geo",
+        "location",
+        "iso",
+        "laravel"
     ],
-    "homepage": "https://github.com/dive-be/:package_name",
+    "homepage": "https://github.com/dive-be/laravel-geo",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Muhammed Sari",
+            "email": "muhammed@dive.be",
             "homepage": "https://dive.be",
             "role": "Developer"
         }
@@ -33,8 +36,7 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "Dive\\Skeleton\\": "src",
-            "Dive\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Dive\\Geo\\": "src"
         }
     },
     "autoload-dev": {
@@ -53,10 +55,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Dive\\Skeleton\\SkeletonServiceProvider"
+                "Dive\\Geo\\GeoServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Dive\\Skeleton\\Facades\\Skeleton"
+                "Geo": "Dive\\Geo\\Facades\\Geo"
             }
         }
     },

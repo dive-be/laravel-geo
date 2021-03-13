@@ -5,7 +5,7 @@ namespace Dive\Geo\Repositories;
 use Closure;
 use Dive\Geo\Contracts\Repository;
 use Dive\Geo\Contracts\Transformer;
-use Illuminate\Config\Repository as Config;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class CookieRepository implements Repository
@@ -14,15 +14,20 @@ class CookieRepository implements Repository
 
     private Closure $jar;
 
+    private string $name;
+
     private ?string $queued = null;
 
     private ?Transformer $transformer = null;
 
-    public function __construct(private Config $config) {}
+    public function __construct(array $config)
+    {
+        $this->name = Arr::get($config, 'name', 'geo');
+    }
 
     public function get()
     {
-        $countryCode = $this->queued ?? ($this->cookie)($this->config->get('geo.repos.cookie.name'));
+        $countryCode = $this->queued ?? ($this->cookie)($this->name);
 
         if (! is_string($countryCode)) {
             return null;
@@ -42,7 +47,7 @@ class CookieRepository implements Repository
 
     public function isNotEmpty(): bool
     {
-        return is_string(($this->cookie)($this->config->get('geo.repos.cookie.name')));
+        return is_string(($this->cookie)($this->name));
     }
 
     public function put(string $countryCode): void
@@ -51,7 +56,7 @@ class CookieRepository implements Repository
 
         $this->queued = Str::upper($countryCode);
 
-        $jar->queue($jar->forever($this->config->get('geo.repos.cookie.name'), $this->queued));
+        $jar->queue($jar->forever($this->name, $this->queued));
     }
 
     public function setCookieResolver(Closure $callback): self

@@ -33,7 +33,7 @@ class GeoServiceProvider extends ServiceProvider
         $this->app->singleton(Repository::class, static function (Application $app) {
             $transformer = $app->make('config')->get('geo.transformer');
 
-            return $app->make(CookieRepository::class)
+            return (new CookieRepository($app->make('config')->get('geo.repos.cookie')))
                 ->setCookieJarResolver(fn () => $app->make('cookie'))
                 ->setCookieResolver(fn (string $name) => $app->make('request')->cookie($name))
                 ->setTransformer(is_string($transformer) ? $app->make($transformer) : null);

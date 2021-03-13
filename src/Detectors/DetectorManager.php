@@ -9,7 +9,7 @@ class DetectorManager extends Manager implements Detector
 {
     public function createStaticDriver(): StaticDetector
     {
-        return new StaticDetector($this->config);
+        return new StaticDetector($this->config->get('geo.fallback'));
     }
 
     public function detect(string $ipAddress): string

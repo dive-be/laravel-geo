@@ -3,12 +3,12 @@
 use Dive\Geo\Contracts\Repository;
 
 if (! function_exists('geo')) {
-    function geo(?string $countryCode = null): ?Repository
+    function geo(?string $countryCode = null)
     {
         if (is_null($countryCode)) {
             return app(Repository::class);
         }
 
-        return app(Repository::class)->put($countryCode);
+        app(Repository::class)->put($countryCode);
     }
 }

@@ -8,3 +8,6 @@ parameters:
     level: 5
 
     checkMissingIterableValueType: false
+
+    ignoreErrors:
+        - '#Property Dive\\Geo\\DetectionCache::\$cache \(Illuminate\\Cache\\Repository\) does not accept Illuminate\\Contracts\\Cache\\Repository\.#'

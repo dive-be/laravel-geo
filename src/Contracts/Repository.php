@@ -14,4 +14,3 @@ interface Repository
 
     public function setTransformer(Transformer $transformer): self;
 }
-

@@ -11,11 +11,11 @@ return [
         'driver' => env('GEO_DETECTORS_DRIVER', 'static'),
     ],
 
-    'fallback' => env('GEO_FALLBACK', 'BE'),
+    'fallback' => 'BE',
 
     'repos' => [
         'cookie' => [
-            'name' =>  env('GEO_REPOS_COOKIE_NAME', 'geo'),
+            'name' => 'geo',
         ],
     ],
 

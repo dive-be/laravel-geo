@@ -5,7 +5,6 @@ namespace Dive\Geo\Repositories;
 use Closure;
 use Dive\Geo\Contracts\Repository;
 use Dive\Geo\Contracts\Transformer;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class CookieRepository implements Repository
@@ -14,16 +13,11 @@ class CookieRepository implements Repository
 
     private Closure $jar;
 
-    private string $name;
-
     private ?string $queued = null;
 
     private ?Transformer $transformer = null;
 
-    public function __construct(array $config)
-    {
-        $this->name = Arr::get($config, 'name', 'geo');
-    }
+    public function __construct(private string $name) {}
 
     public function get()
     {

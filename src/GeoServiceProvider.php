@@ -11,7 +11,6 @@ use Dive\Geo\Detectors\DetectorManager;
 use Dive\Geo\Middleware\DetectGeoLocation;
 use Dive\Geo\Repositories\CookieRepository;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 
 class GeoServiceProvider extends ServiceProvider
@@ -37,16 +36,16 @@ class GeoServiceProvider extends ServiceProvider
         $this->app->singleton(DetectionCache::class, static function (Application $app) {
             $config = $app->make('config')->get('geo.cache');
 
-            return new DetectionCache($app->make('cache'), Arr::get($config, 'ttl', 3600), Arr::get($config, 'tag'));
+            return new DetectionCache($app->make('cache'), $config['ttl'], $config['tag']);
         });
 
         $this->app->singleton(Repository::class, static function (Application $app) {
-            $transformer = $app->make('config')->get('geo.transformer');
+            $config = $app->make('config')->get('geo');
 
-            return (new CookieRepository($app->make('config')->get('geo.repos.cookie')))
+            return (new CookieRepository($config['repos']['cookie']['name']))
                 ->setCookieJarResolver(fn () => $app->make('cookie'))
                 ->setCookieResolver(fn (string $name) => $app->make('request')->cookie($name))
-                ->setTransformer(is_string($transformer) ? $app->make($transformer) : null);
+                ->setTransformer(is_string($config['transformer']) ? $app->make($config['transformer']) : null);
         });
 
         $this->app->singleton(Detector::class, DetectorManager::class);

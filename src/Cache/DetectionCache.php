@@ -20,9 +20,7 @@ class DetectionCache
 
     public function flush(): void
     {
-        if ($this->cache->supportsTags()) {
-            $this->cache->flush();
-        }
+        $this->cache->flush();
     }
 
     public function remember(string $ipAddress, Closure $callback): string

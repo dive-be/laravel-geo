@@ -11,24 +11,26 @@ use Illuminate\Support\Manager;
 
 class DetectorManager extends Manager implements Detector
 {
-    public function createMaxmindDbDriver(): MaxMindDatabaseDetector
+    public function createMaxmindDbDriver(): Detector
     {
         $reader = new Reader($this->config->get('geo.detectors.maxmind_db.database_path'));
-
-        return (new MaxMindDatabaseDetector($reader, $this->config->get('geo.fallback')))
+        $detector = (new MaxMindDatabaseDetector($reader, $this->config->get('geo.fallback')))
             ->setLogResolver(fn () => $this->container->make('log'));
+
+        return $this->proxy($detector);
     }
 
-    public function createMaxmindWebDriver(): MaxMindWebDetector
+    public function createMaxmindWebDriver(): Detector
     {
         $config = $this->config->get('geo.detectors.maxmind_web');
         $client = new Client($config['account_id'], $config['license_key']);
-
-        return (new MaxMindWebDetector($client, $this->config->get('geo.fallback')))
+        $detector = (new MaxMindWebDetector($client, $this->config->get('geo.fallback')))
             ->setLogResolver(fn () => $this->container->make('log'));
+
+        return $this->proxy($detector);
     }
 
-    public function createStaticDriver(): StaticDetector
+    public function createStaticDriver(): Detector
     {
         return new StaticDetector($this->config->get('geo.fallback'));
     }

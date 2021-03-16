@@ -13,6 +13,11 @@ return [
         'maxmind_db' => [
             'database_path' => storage_path('app/geo/geoip2.mmdb'),
         ],
+
+        'maxmind_web' => [
+            'account_id' => env('GEO_DETECTORS_MAXMIND_WEB_ACCOUNT_ID'),
+            'license_key' => env('GEO_DETECTORS_MAXMIND_WEB_LICENSE_KEY'),
+        ],
     ],
 
     'fallback' => 'BE',

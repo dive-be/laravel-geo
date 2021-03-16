@@ -6,6 +6,7 @@ use Dive\Geo\Cache\CacheDetectorProxy;
 use Dive\Geo\Cache\DetectionCache;
 use Dive\Geo\Contracts\Detector;
 use GeoIp2\Database\Reader;
+use GeoIp2\WebService\Client;
 use Illuminate\Support\Manager;
 
 class DetectorManager extends Manager implements Detector
@@ -15,6 +16,15 @@ class DetectorManager extends Manager implements Detector
         $reader = new Reader($this->config->get('geo.detectors.maxmind_db.database_path'));
 
         return (new MaxMindDatabaseDetector($reader, $this->config->get('geo.fallback')))
+            ->setLogResolver(fn () => $this->container->make('log'));
+    }
+
+    public function createMaxmindWebDriver(): MaxMindWebDetector
+    {
+        $config = $this->config->get('geo.detectors.maxmind_web');
+        $client = new Client($config['account_id'], $config['license_key']);
+
+        return (new MaxMindWebDetector($client, $this->config->get('geo.fallback')))
             ->setLogResolver(fn () => $this->container->make('log'));
     }
 

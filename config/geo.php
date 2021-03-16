@@ -9,6 +9,10 @@ return [
 
     'detectors' => [
         'driver' => env('GEO_DETECTORS_DRIVER', 'static'),
+
+        'maxmind_db' => [
+            'database_path' => storage_path('app/geo/geoip2.mmdb'),
+        ],
     ],
 
     'fallback' => 'BE',

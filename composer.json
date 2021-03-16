@@ -26,11 +26,15 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.18",
+        "geoip2/geoip2": "^2.11",
         "nunomaduro/larastan": "^0.7",
         "orchestra/testbench": "^6.13",
         "pestphp/pest": "^1.0",
         "pestphp/pest-plugin-laravel": "^1.0",
         "phpunit/phpunit": "^9.5"
+    },
+    "suggest": {
+        "geoip2/geoip2": "Required for using MaxMind / GeoIP2 database or web services."
     },
     "autoload": {
         "files": [

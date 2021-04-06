@@ -31,7 +31,7 @@ return [
         'driver' => env('GEO_DETECTORS_DRIVER', 'static'),
 
         'maxmind_db' => [
-            'database_path' => storage_path('app/geo/geoip2.mmdb'),
+            'database_path' => storage_path('app/geoip2.mmdb'),
             'license_key' => env('GEO_DETECTORS_MAXMIND_DB_LICENSE_KEY'),
             'url' => 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=%s&suffix=tar.gz',
         ],

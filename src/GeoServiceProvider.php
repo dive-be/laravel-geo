@@ -5,6 +5,7 @@ namespace Dive\Geo;
 use Dive\Geo\Cache\DetectionCache;
 use Dive\Geo\Commands\ClearCacheCommand;
 use Dive\Geo\Commands\InstallPackageCommand;
+use Dive\Geo\Commands\UpdateDatabaseCommand;
 use Dive\Geo\Contracts\Detector;
 use Dive\Geo\Contracts\Repository;
 use Dive\Geo\Detectors\DetectorManager;
@@ -56,6 +57,7 @@ class GeoServiceProvider extends ServiceProvider
         $this->commands([
             ClearCacheCommand::class,
             InstallPackageCommand::class,
+            UpdateDatabaseCommand::class,
         ]);
     }
 

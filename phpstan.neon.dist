@@ -10,4 +10,4 @@ parameters:
     checkMissingIterableValueType: false
 
     ignoreErrors:
-        - '#Property Dive\\Geo\\DetectionCache::\$cache \(Illuminate\\Cache\\Repository\) does not accept Illuminate\\Contracts\\Cache\\Repository\.#'
+        - '#Property Dive\\Geo\\Cache\\DetectionCache::\$cache \(Illuminate\\Cache\\Repository\) does not accept Illuminate\\Contracts\\Cache\\Repository\.#'

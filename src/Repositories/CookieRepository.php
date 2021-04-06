@@ -67,7 +67,7 @@ class CookieRepository implements Repository
         return $this;
     }
 
-    public function setTransformer(Transformer $transformer): self
+    public function setTransformer(?Transformer $transformer): self
     {
         $this->transformer = $transformer;
 

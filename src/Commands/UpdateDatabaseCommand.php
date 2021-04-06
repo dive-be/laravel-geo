@@ -34,7 +34,7 @@ class UpdateDatabaseCommand extends Command
         if (($driver = $config['driver']) !== 'maxmind_db') {
             $this->warn("🤚  The '{$driver}' driver does not need updating.");
 
-            return 0;
+            return 1;
         }
 
         $this->info('⬇️  Downloading database...');

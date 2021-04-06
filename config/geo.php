@@ -1,17 +1,39 @@
 <?php
 
 return [
+    /**
+     * IP address translations can be cached to improve successive lookup times.
+     */
     'cache' => [
         'enabled' => false,
+
+        /**
+         * Address translations are tagged to only clear them when a clear command is run.
+         * Not supported by the "file", "database" and "dynamodb" cache drivers.
+         */
         'tag' => 'dive-geo-location',
+
+        /**
+         * Time-to-live in seconds.
+         */
         'ttl' => 3600,
     ],
 
+    /**
+     * Detectors are classes responsible for detecting the geo location of a given IP address.
+     *
+     * Supported drivers:
+     *  - "static" (always translates to the fallback country)
+     *  - "maxmind_db" (GeoIP2/GeoLite2 Databases)
+     *  - "maxmind_web" (GeoIP2 Precision Web Services)
+     */
     'detectors' => [
         'driver' => env('GEO_DETECTORS_DRIVER', 'static'),
 
         'maxmind_db' => [
             'database_path' => storage_path('app/geo/geoip2.mmdb'),
+            'license_key' => env('GEO_DETECTORS_MAXMIND_DB_LICENSE_KEY'),
+            'url' => 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=%s&suffix=tar.gz',
         ],
 
         'maxmind_web' => [
@@ -20,13 +42,21 @@ return [
         ],
     ],
 
+    /**
+     * A valid ISO alpha-2 country code.
+     * Used when an IP address cannot be translated.
+     */
     'fallback' => 'BE',
 
     'repos' => [
         'cookie' => [
-            'name' => 'geo',
+            'name' => 'geo', // The cookie's name when set on the users' browsers
         ],
     ],
 
+    /**
+     * The valid FQCN of your custom transformer.
+     * When set, values retrieved from the repository will be transformed first using this class.
+     */
     'transformer' => null,
 ];

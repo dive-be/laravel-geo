@@ -17,15 +17,11 @@ class CookieRepository implements Repository
 
     private ?Transformer $transformer = null;
 
-    public function __construct(private string $name) {}
+    public function __construct(private string $name, private string $fallback) {}
 
     public function get()
     {
-        $countryCode = $this->queued ?? ($this->cookie)($this->name);
-
-        if (! is_string($countryCode)) {
-            return null;
-        }
+        $countryCode = $this->queued ?? ($this->cookie)($this->name) ?? $this->fallback;
 
         if ($this->transformer instanceof Transformer) {
             return $this->transformer->transform($countryCode);

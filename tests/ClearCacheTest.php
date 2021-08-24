@@ -3,7 +3,6 @@
 namespace Tests;
 
 use Dive\Geo\Cache\DetectionCache;
-
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\mock;
 

@@ -11,4 +11,3 @@ it('updates the maxmind_db driver only', function (string $driver) {
         ->assertExitCode(1)
         ->expectsOutput("🤚  The '{$driver}' driver does not need updating.");
 })->with(['static', 'maxmind_web']);
-

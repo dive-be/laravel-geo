@@ -1,6 +1,6 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
+$finder = Symfony\Component\Finder\Finder::create()
     ->exclude('vendor')
     ->name('*.php')
     ->notName('*.blade.php')
@@ -24,10 +24,10 @@ $dive = [
             'try',
         ],
     ],
-    'braces' => [],
+    'braces' => false,
+    'constant_case' => ['case' => 'lower'],
     'increment_style' => ['style' => 'post'],
     'is_null' => false,
-    'lowercase_constants' => true,
     'method_argument_space' => [
         'on_multiline' => 'ensure_fully_multiline',
         'keep_multiple_spaces_after_comma' => true,
@@ -42,8 +42,8 @@ $dive = [
     ],
     'phpdoc_to_comment' => false,
     'single_line_throw' => false,
-    'trailing_comma_in_multiline_array' => true,
-    'yoda_style' => [],
+    'trailing_comma_in_multiline' => true,
+    'yoda_style' => false,
 ];
 
 return (new PhpCsFixer\Config())

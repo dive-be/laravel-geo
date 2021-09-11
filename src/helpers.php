@@ -1,14 +1,12 @@
 <?php
 
-use Dive\Geo\Contracts\Repository;
-
 if (! function_exists('geo')) {
     function geo(?string $countryCode = null)
     {
         if (is_null($countryCode)) {
-            return app(Repository::class);
+            return app(__FUNCTION__);
         }
 
-        app(Repository::class)->put($countryCode);
+        app(__FUNCTION__)->put($countryCode);
     }
 }

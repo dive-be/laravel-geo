@@ -2,7 +2,6 @@
 
 namespace Dive\Geo\Facades;
 
-use Dive\Geo\Contracts\Repository;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -15,6 +14,6 @@ class Geo extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return Repository::class;
+        return 'geo';
     }
 }

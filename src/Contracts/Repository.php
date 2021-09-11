@@ -8,5 +8,5 @@ interface Repository
 
     public function put(string $countryCode): void;
 
-    public function setTransformer(Transformer $transformer): self;
+    public function setTransformer(?Transformer $transformer): self;
 }

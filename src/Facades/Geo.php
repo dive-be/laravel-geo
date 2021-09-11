@@ -2,6 +2,7 @@
 
 namespace Dive\Geo\Facades;
 
+use Dive\Geo\Repositories\InMemoryRepository;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -12,6 +13,17 @@ use Illuminate\Support\Facades\Facade;
  */
 class Geo extends Facade
 {
+    public static function fake(): InMemoryRepository
+    {
+        $config = static::$app['config']['geo'];
+
+        static::swap($fake = (new InMemoryRepository($config['fallback']))->setTransformer(
+            class_exists($config['transformer']) ? static::$app->make($config['transformer']) : null
+        ));
+
+        return $fake;
+    }
+
     protected static function getFacadeAccessor()
     {
         return 'geo';

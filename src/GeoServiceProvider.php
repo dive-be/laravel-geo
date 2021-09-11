@@ -40,8 +40,8 @@ class GeoServiceProvider extends ServiceProvider
             return new DetectionCache($app->make('cache'), $config['ttl'], $config['tag']);
         });
 
-        $this->app->alias(Repository::class, 'geo');
-        $this->app->singleton(Repository::class, static function (Application $app) {
+        $this->app->alias('geo', Repository::class);
+        $this->app->singleton('geo', static function (Application $app) {
             $config = $app->make('config')->get('geo');
 
             return (new CookieRepository($config['repos']['cookie']['name'], $config['fallback']))

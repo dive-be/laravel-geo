@@ -128,7 +128,7 @@ protected function schedule(Schedule $schedule)
 #### GeoIP2 Precision Web Services
 
 - Get `account_id` & `license_key`
-- Set the `GEO_DETECTORS_MAXMIND_WEB_ACCOUNT_ID` & `GEO_DETECTORS_MAXMIND_WEB_LICENSE_KEY` environemnt variables
+- Set the `GEO_DETECTORS_MAXMIND_WEB_ACCOUNT_ID` & `GEO_DETECTORS_MAXMIND_WEB_LICENSE_KEY` environment variables
 
 #### Static
 
@@ -150,7 +150,7 @@ If your app is behind a proxy/load balancer, make sure `DetectGeoLocation` is de
 ],
 ```
 
-## Retrieving the detected geo location 
+## Retrieving the detected country 🗺
 
 There are multiple ways to retrieve the detected ISO alpha-2 country code.
 
@@ -187,7 +187,7 @@ public function __invoke(Repository $geo)
 }
 ```
 
-### Transforming the detected geo location
+### Transforming the detected geo location 🔷
 
 It is a high probability that you'd like to transform the ISO alpha-2 country code into your own Eloquent model or value object
 after calling `get` on the repository class. You may define your own `CountryTransformer` which implements the `Transformer` interface
@@ -216,7 +216,7 @@ After defining the class, make sure to provide the FQCN in the configuration fil
 'transformer' => App\Transformers\CountryTransformer::class,
 ```
 
-### Overwriting existing country
+### Overwriting existing country ✍🏼
 
 At any point in time, you may overwrite the detected country code. Simply call:
 
@@ -226,7 +226,7 @@ Geo::put('TR'); // facade
 $geo->put('TR'); // injected
 ```
 
-### Clearing the cache
+### Clearing the cache 🔥
 
 When enabled, the translated addresses will be held in cache for a certain amount of time defined in the configuration file.
 If you'd like to wipe these translations, use the command:
@@ -237,7 +237,31 @@ php artisan geo:clear
 
 > Note: the cache driver must support tagging or else __everything__ will be cleared when the command above is run.
 
-## Testing
+## Extending the detectors 👣
+
+If the default drivers do not fulfill your needs, you may extend the `DetectorManager` with your own custom drivers:
+
+```php
+use Dive\Geo\Facades\Detector;
+
+Detector::extend('ipapi', function () {
+    return new IPApiDetector(...);
+});
+```
+
+## Testing 🔎
+
+This package offers fake implementations of the `Repository` & `Detector` contracts so you can make assertions in your unit tests and make sure you ship that bug-free code 💪. Just call `fake` on either of them and you're set:
+
+```php
+use Dive\Geo\Facades\Detector;
+use Dive\Geo\Facades\Geo;
+
+Detector::fake();
+Geo::fake();
+```
+
+## Testing (package)
 
 ```bash
 composer test

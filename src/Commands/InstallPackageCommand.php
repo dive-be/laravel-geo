@@ -15,7 +15,7 @@ class InstallPackageCommand extends Command
         if ($this->isHidden()) {
             $this->error('🤚  Geo is already installed.');
 
-            return 1;
+            return self::FAILURE;
         }
 
         $this->line('🏎  Installing geo...');
@@ -28,7 +28,7 @@ class InstallPackageCommand extends Command
 
         $this->info('🏁  Geo installed successfully!');
 
-        return 0;
+        return self::SUCCESS;
     }
 
     public function isHidden(): bool

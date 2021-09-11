@@ -34,7 +34,7 @@ class UpdateDatabaseCommand extends Command
         if (($driver = $config['driver']) !== 'maxmind_db') {
             $this->warn("🤚  The '{$driver}' driver does not need updating.");
 
-            return 1;
+            return self::FAILURE;
         }
 
         $this->info('⬇️  Downloading database...');
@@ -49,7 +49,7 @@ class UpdateDatabaseCommand extends Command
 
         $this->cleanUp($tuple->first());
 
-        return 0;
+        return self::SUCCESS;
     }
 
     private function cleanUp(string $directory)

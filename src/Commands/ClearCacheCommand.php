@@ -17,6 +17,6 @@ class ClearCacheCommand extends Command
 
         $this->info('🔥  Geo cache has been cleared.');
 
-        return 0;
+        return self::SUCCESS;
     }
 }

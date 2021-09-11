@@ -50,7 +50,9 @@ class GeoServiceProvider extends ServiceProvider
                 ->setTransformer(class_exists($transformer = $config['transformer']) ? $app->make($transformer) : null);
         });
 
-        $this->app->singleton(Detector::class, DetectorManager::class);
+        $this->app->alias(DetectorManager::class, 'geo.detector');
+        $this->app->alias(DetectorManager::class, Detector::class);
+        $this->app->singleton(DetectorManager::class);
     }
 
     private function registerCommands()

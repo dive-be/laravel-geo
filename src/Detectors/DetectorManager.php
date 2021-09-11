@@ -11,7 +11,12 @@ use Illuminate\Support\Manager;
 
 class DetectorManager extends Manager implements Detector
 {
-    public function createMaxmindDbDriver(): Detector
+    public function getDefaultDriver()
+    {
+        return $this->config->get('geo.detectors.driver');
+    }
+
+    protected function createMaxmindDbDriver(): Detector
     {
         $reader = new Reader($this->config->get('geo.detectors.maxmind_db.database_path'));
         $detector = (new MaxMindDatabaseDetector($reader, $this->config->get('geo.fallback')))
@@ -20,7 +25,7 @@ class DetectorManager extends Manager implements Detector
         return $this->proxy($detector);
     }
 
-    public function createMaxmindWebDriver(): Detector
+    protected function createMaxmindWebDriver(): Detector
     {
         $config = $this->config->get('geo.detectors.maxmind_web');
         $client = new Client($config['account_id'], $config['license_key']);
@@ -30,19 +35,9 @@ class DetectorManager extends Manager implements Detector
         return $this->proxy($detector);
     }
 
-    public function createStaticDriver(): Detector
+    protected function createStaticDriver(): Detector
     {
         return new StaticDetector($this->config->get('geo.fallback'));
-    }
-
-    public function detect(string $ipAddress): string
-    {
-        return $this->__call(__FUNCTION__, func_get_args());
-    }
-
-    public function getDefaultDriver()
-    {
-        return $this->config->get('geo.detectors.driver');
     }
 
     private function proxy(Detector $detector): Detector
@@ -53,4 +48,13 @@ class DetectorManager extends Manager implements Detector
 
         return new CacheDetectorProxy($this->container->make(DetectionCache::class), $detector);
     }
+
+    // region CONTRACT
+
+    public function detect(string $ipAddress): string
+    {
+        return $this->driver()->detect($ipAddress);
+    }
+
+    // endregion
 }

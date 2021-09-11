@@ -33,13 +33,6 @@ it('can transform the country after retrieval', function () {
     expect($country->name)->toBe($this->turkey);
 });
 
-it('can determine emptiness', function () {
-    $this->repo->setCookieResolver(fn ($name) => $this->turkey);
-
-    expect($this->repo->isEmpty())->toBeFalse();
-    expect($this->repo->isNotEmpty())->toBeTrue();
-});
-
 it('can put a new value', function () {
     $jar = Mockery::mock();
     $jar->shouldReceive('forever')->withArgs([$this->cookieName, $swiss = 'CH']);

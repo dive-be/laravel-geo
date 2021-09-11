@@ -30,16 +30,6 @@ class CookieRepository implements Repository
         return $countryCode;
     }
 
-    public function isEmpty(): bool
-    {
-        return ! $this->isNotEmpty();
-    }
-
-    public function isNotEmpty(): bool
-    {
-        return is_string(($this->cookie)($this->name));
-    }
-
     public function put(string $countryCode): void
     {
         $jar = call_user_func($this->jar);

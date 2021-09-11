@@ -23,7 +23,7 @@ class MaxMindDatabaseDetector implements Detector
         } catch (AddressNotFoundException) {
             return $this->fallback;
         } catch (InvalidDatabaseException $exception) {
-            ($this->log)()->error($exception->getMessage(), $exception->getTrace());
+            call_user_func($this->log)->error($exception->getMessage(), $exception->getTrace());
 
             return $this->fallback;
         }

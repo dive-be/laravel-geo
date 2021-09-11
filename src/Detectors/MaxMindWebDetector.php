@@ -23,7 +23,7 @@ class MaxMindWebDetector implements Detector
         } catch (AddressNotFoundException) {
             return $this->fallback;
         } catch (GeoIp2Exception $exception) {
-            ($this->log)()->error($exception->getMessage(), $exception->getTrace());
+            call_user_func($this->log)->error($exception->getMessage(), $exception->getTrace());
 
             return $this->fallback;
         }

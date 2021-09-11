@@ -15,7 +15,7 @@ class DetectGeoLocation
     public function handle(Request $request, Closure $next)
     {
         if ($this->repo->isEmpty()) {
-            $this->repo->put(($this->detector)()->detect($request->ip()));
+            $this->repo->put(call_user_func($this->detector)->detect($request->ip()));
         }
 
         return $next($request);

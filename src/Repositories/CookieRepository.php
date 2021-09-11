@@ -21,7 +21,7 @@ class CookieRepository implements Repository
 
     public function get()
     {
-        $countryCode = $this->queued ?? ($this->cookie)($this->name) ?? $this->fallback;
+        $countryCode = $this->queued ?? call_user_func($this->cookie, $this->name) ?? $this->fallback;
 
         if ($this->transformer instanceof Transformer) {
             return $this->transformer->transform($countryCode);
@@ -42,7 +42,7 @@ class CookieRepository implements Repository
 
     public function put(string $countryCode): void
     {
-        $jar = ($this->jar)();
+        $jar = call_user_func($this->jar);
 
         $this->queued = Str::upper($countryCode);
 

@@ -1,8 +1,10 @@
-# Translate IP addresses into geo locations
+# 🌍 - Translate IP addresses into geo locations
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dive-be/laravel-geo.svg?style=flat-square)](https://packagist.org/packages/dive-be/laravel-geo)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Total Downloads](https://img.shields.io/packagist/dt/dive-be/laravel-geo.svg?style=flat-square)](https://packagist.org/packages/dive-be/laravel-geo)
 
-⚠️ Minor releases of this package may cause breaking changes as it has no stable release yet.
+This package will assist you in grabbing a visitor's country.
 
 ## What problem does this package solve?
 
@@ -16,38 +18,101 @@ You can install the package via composer:
 composer require dive-be/laravel-geo
 ```
 
+You will also need to install GeoIP2 if you're planning to use their services:
+
+```bash
+composer require geoip2/geoip2
+```
+
 You can publish the config file with:
 ```bash
 php artisan geo:install
 ```
 
-## Usage
+This is the content of the config file:
 
-### Services
+```php
+return [
+    /**
+     * IP address translations can be cached to improve successive lookup times.
+     */
+    'cache' => [
+        'enabled' => false,
+
+        /**
+         * Address translations are tagged to only clear them when a clear command is run.
+         * Not supported by the "file", "database" and "dynamodb" cache drivers.
+         */
+        'tag' => 'dive-geo-location',
+
+        /**
+         * Time-to-live in seconds.
+         */
+        'ttl' => 3600,
+    ],
+
+    /**
+     * Detectors are classes responsible for detecting the geo location of a given IP address.
+     *
+     * Supported drivers:
+     *  - "static" (always translates to the fallback country)
+     *  - "maxmind_db" (GeoIP2/GeoLite2 Databases)
+     *  - "maxmind_web" (GeoIP2 Precision Web Services)
+     */
+    'detectors' => [
+        'driver' => env('GEO_DETECTORS_DRIVER', 'static'),
+
+        'maxmind_db' => [
+            'database_path' => storage_path('app/geoip2.mmdb'),
+            'license_key' => env('GEO_DETECTORS_MAXMIND_DB_LICENSE_KEY'),
+            'url' => 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=%s&suffix=tar.gz',
+        ],
+
+        'maxmind_web' => [
+            'account_id' => env('GEO_DETECTORS_MAXMIND_WEB_ACCOUNT_ID'),
+            'license_key' => env('GEO_DETECTORS_MAXMIND_WEB_LICENSE_KEY'),
+        ],
+    ],
+
+    /**
+     * A valid ISO alpha-2 country code.
+     * Used when an IP address cannot be translated.
+     */
+    'fallback' => 'BE',
+
+    'repos' => [
+        'cookie' => [
+            'name' => 'geo', // The cookie's name when set on the users' browsers
+        ],
+    ],
+
+    /**
+     * The valid FQCN of your custom transformer.
+     * When set, values retrieved from the repository will be transformed first using this class.
+     */
+    'transformer' => null,
+];
+```
+
+## Usage
 
 First, you will have to decide which service to use.
 
 - [GeoIP2 Databases](https://www.maxmind.com/en/geoip2-databases)
 - [GeoIP2 Precision Web Services](https://www.maxmind.com/en/geoip2-precision-services)
 
-When you've decided, set the `GEO_DETECTORS_DRIVER` environment variable to the correct value. Refer to the configuration file for the right values.
+### Detectors
+
+When you've decided, set the `GEO_DETECTORS_DRIVER` environment variable to the correct value. 
+Refer to the configuration file for the right values.
 
 #### GeoIP2 Databases
 
 - Generate a license key
 - Set the `GEO_DETECTORS_MAXMIND_DB_LICENSE_KEY` environment variable to your license key
 
-#### GeoIP2 Precision Web Services
 
-- Get `account_id` & `license_key`
-- Set the `GEO_DETECTORS_MAXMIND_WEB_ACCOUNT_ID` & `GEO_DETECTORS_MAXMIND_WEB_LICENSE_KEY` environemnt variables
-
-#### Static
-
-The static driver is meant for usage during local development and testing. 
-You should not use it in any other environment as it is always going to return the fallback value.
-
-### Updating local database
+#### Auto updating local database
 
 IP address ranges tend to become out of date over time. 
 Therefore, this package also provides a convenient update command which you can schedule to run once a week to keep everything fresh.
@@ -59,6 +124,16 @@ protected function schedule(Schedule $schedule)
     $schedule->command('geo:update')->weekly();
 }
 ```
+
+#### GeoIP2 Precision Web Services
+
+- Get `account_id` & `license_key`
+- Set the `GEO_DETECTORS_MAXMIND_WEB_ACCOUNT_ID` & `GEO_DETECTORS_MAXMIND_WEB_LICENSE_KEY` environemnt variables
+
+#### Static
+
+The static driver is meant for usage during local development and testing. 
+You should not use it in any other environment as it is always going to return the fallback value.
 
 Only applicable if using MaxMind's *GeoIP2 Databases*.
 
@@ -75,7 +150,7 @@ If your app is behind a proxy/load balancer, make sure `DetectGeoLocation` is de
 ],
 ```
 
-### Retrieving the detected geo location
+## Retrieving the detected geo location 
 
 There are multiple ways to retrieve the detected ISO alpha-2 country code.
 
@@ -160,7 +235,7 @@ If you'd like to wipe these translations, use the command:
 php artisan geo:clear
 ```
 
-Please note that the cache driver must support tagging or else everything will be cleared when the command above is run.
+> Note: the cache driver must support tagging or else __everything__ will be cleared when the command above is run.
 
 ## Testing
 

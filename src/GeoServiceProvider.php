@@ -44,13 +44,12 @@ class GeoServiceProvider extends ServiceProvider
         $this->app->singleton('geo', static function (Application $app) {
             $config = $app->make('config')->get('geo');
 
-            return (new CookieRepository($config['repos']['cookie']['name'], $config['fallback']))
+            return (new CookieRepository($config['repos']['cookie']['name']))
                 ->setCookieJarResolver(fn () => $app->make('cookie'))
                 ->setCookieResolver(fn (string $name) => $app->make('request')->cookie($name))
                 ->setTransformer(class_exists($transformer = $config['transformer']) ? $app->make($transformer) : null);
         });
 
-        $this->app->alias('geo.detector', DetectorManager::class);
         $this->app->alias('geo.detector', Detector::class);
         $this->app->singleton('geo.detector', DetectorManager::class);
     }

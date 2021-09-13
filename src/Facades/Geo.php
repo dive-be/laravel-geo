@@ -15,10 +15,10 @@ class Geo extends Facade
 {
     public static function fake(): InMemoryRepository
     {
-        $config = static::$app['config']['geo'];
+        $transformer = static::$app['config']['geo.transformer'];
 
-        static::swap($fake = (new InMemoryRepository($config['fallback']))->setTransformer(
-            class_exists($config['transformer']) ? static::$app->make($config['transformer']) : null
+        static::swap($fake = (new InMemoryRepository())->setTransformer(
+            class_exists($transformer) ? static::$app->make($transformer) : null
         ));
 
         return $fake;

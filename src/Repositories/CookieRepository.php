@@ -17,13 +17,13 @@ class CookieRepository implements Repository
 
     private ?Transformer $transformer = null;
 
-    public function __construct(private string $name, private string $fallback) {}
+    public function __construct(private string $name) {}
 
     public function get()
     {
-        $countryCode = $this->queued ?? call_user_func($this->cookie, $this->name) ?? $this->fallback;
+        $countryCode = $this->value();
 
-        if ($this->transformer instanceof Transformer) {
+        if ($this->transformer instanceof Transformer && is_string($countryCode)) {
             return $this->transformer->transform($countryCode);
         }
 
@@ -32,12 +32,12 @@ class CookieRepository implements Repository
 
     public function isEmpty(): bool
     {
-        return ! $this->isNotEmpty();
+        return is_null($this->value());
     }
 
     public function isNotEmpty(): bool
     {
-        return is_string(($this->cookie)($this->name));
+        return ! $this->isEmpty();
     }
 
     public function put(string $countryCode): void
@@ -47,6 +47,11 @@ class CookieRepository implements Repository
         $this->queued = Str::upper($countryCode);
 
         $jar->queue($jar->forever($this->name, $this->queued));
+    }
+
+    private function value(): ?string
+    {
+        return $this->queued ?? call_user_func($this->cookie, $this->name);
     }
 
     public function setCookieResolver(Closure $callback): self

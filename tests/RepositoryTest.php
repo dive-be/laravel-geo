@@ -8,9 +8,8 @@ use Tests\Fakes\Country;
 use Tests\Fakes\CountryTransformer;
 
 beforeEach(function () {
-    $this->belgium = 'BE';
     $this->cookieName = 'geo-test';
-    $this->repo = new CookieRepository($this->cookieName, $this->belgium);
+    $this->repo = new CookieRepository($this->cookieName);
     $this->turkey = 'TR';
 });
 
@@ -49,7 +48,7 @@ it('can put a new value', function () {
         ->setCookieJarResolver(fn () => $jar)
         ->setCookieResolver(fn () => null);
 
-    expect($this->repo->get())->toBe($this->belgium); // fallback
+    expect($this->repo->get())->toBeNull();
 
     $this->repo->put($swiss);
 

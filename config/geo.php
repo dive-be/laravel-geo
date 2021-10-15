@@ -26,9 +26,14 @@ return [
      *  - "static" (always translates to the fallback country)
      *  - "maxmind_db" (GeoIP2/GeoLite2 Databases)
      *  - "maxmind_web" (GeoIP2 Precision Web Services)
+     *  - "ip2c" (IP 2 Country free web service)
      */
     'detectors' => [
         'driver' => env('GEO_DETECTORS_DRIVER', 'static'),
+
+        'ip2c' => [
+            'endpoint' => 'https://api.ip2country.info/ip',
+        ],
 
         'maxmind_db' => [
             'database_path' => storage_path('app/geoip2.mmdb'),

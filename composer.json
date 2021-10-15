@@ -28,6 +28,7 @@
         "illuminate/support": "^8.0"
     },
     "require-dev": {
+        "ext-curl": "*",
         "friendsofphp/php-cs-fixer": "^3.0",
         "geoip2/geoip2": "^2.11",
         "nunomaduro/larastan": "^0.7",
@@ -37,6 +38,7 @@
         "phpunit/phpunit": "^9.5"
     },
     "suggest": {
+        "ext-curl": "Required for sending requests to the IP 2 Country web services.",
         "geoip2/geoip2": "Required for using MaxMind / GeoIP2 database or web services."
     },
     "autoload": {

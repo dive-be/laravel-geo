@@ -58,9 +58,14 @@ return [
      *  - "static" (always translates to the fallback country)
      *  - "maxmind_db" (GeoIP2/GeoLite2 Databases)
      *  - "maxmind_web" (GeoIP2 Precision Web Services)
+     *  - "ip2c" (IP 2 Country free web service)
      */
     'detectors' => [
         'driver' => env('GEO_DETECTORS_DRIVER', 'static'),
+
+        'ip2c' => [
+            'endpoint' => 'https://api.ip2country.info/ip',
+        ],
 
         'maxmind_db' => [
             'database_path' => storage_path('app/geoip2.mmdb'),
@@ -100,6 +105,7 @@ First, you will have to decide which service to use.
 
 - [GeoIP2 Databases](https://www.maxmind.com/en/geoip2-databases)
 - [GeoIP2 Precision Web Services](https://www.maxmind.com/en/geoip2-precision-services)
+- [IP 2 Country](https://ip2country.info/)
 
 ### Detectors
 
@@ -129,6 +135,12 @@ protected function schedule(Schedule $schedule)
 
 - Get `account_id` & `license_key`
 - Set the `GEO_DETECTORS_MAXMIND_WEB_ACCOUNT_ID` & `GEO_DETECTORS_MAXMIND_WEB_LICENSE_KEY` environment variables
+
+#### IP 2 Country
+
+This is a free service. You don't have to configure anything.
+
+> Note: it is strongly recommended to enable caching for this driver.
 
 #### Static
 

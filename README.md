@@ -131,6 +131,8 @@ protected function schedule(Schedule $schedule)
 }
 ```
 
+Only applicable if using MaxMind's *GeoIP2 Databases*.
+
 #### GeoIP2 Precision Web Services
 
 - Get `account_id` & `license_key`
@@ -146,8 +148,6 @@ This is a free service. You don't have to configure anything.
 
 The static driver is meant for usage during local development and testing. 
 You should not use it in any other environment as it is always going to return the fallback value.
-
-Only applicable if using MaxMind's *GeoIP2 Databases*.
 
 ### Detecting a visitor's geo location
 

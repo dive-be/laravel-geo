@@ -68,6 +68,7 @@
                 "Dive\\Geo\\GeoServiceProvider"
             ],
             "aliases": {
+                "Detector": "Dive\\Geo\\Facades\\Detector",
                 "Geo": "Dive\\Geo\\Facades\\Geo"
             }
         }

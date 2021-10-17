@@ -47,7 +47,9 @@ class GeoServiceProvider extends ServiceProvider
             return (new CookieRepository($config['repos']['cookie']['name']))
                 ->setCookieJarResolver(fn () => $app->make('cookie'))
                 ->setCookieResolver(fn (string $name) => $app->make('request')->cookie($name))
-                ->setTransformer(class_exists($transformer = $config['transformer']) ? $app->make($transformer) : null);
+                ->setTransformer(
+                    class_exists($transformer = (string) $config['transformer']) ? $app->make($transformer) : null
+                );
         });
 
         $this->app->alias('geo.detector', Detector::class);

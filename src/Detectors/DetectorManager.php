@@ -11,7 +11,7 @@ use Illuminate\Support\Manager;
 
 class DetectorManager extends Manager implements Detector
 {
-    public function config(string $key): array|string
+    public function config(string $key): array|bool|int|string
     {
         return $this->config->get("geo.{$key}");
     }

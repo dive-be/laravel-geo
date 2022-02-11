@@ -10,7 +10,7 @@ class IP2CountryDetector implements Detector
 
     public function detect(string $ipAddress): string
     {
-        ['countryCode' => $isoCode] = $this->sendRequest($this->endpoint.'?'.$ipAddress);
+        ['countryCode' => $isoCode] = $this->sendRequest($this->endpoint . '?' . $ipAddress);
 
         if (empty($isoCode)) {
             return $this->fallback;

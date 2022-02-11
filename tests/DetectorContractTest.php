@@ -21,7 +21,7 @@ it('returns the fallback country if none can be detected', function (Detector $d
 })->with('detectors');
 
 dataset('detectors', [
-    fn () => new MaxMindDatabaseDetector(new Reader(__DIR__.'/db/geoip2.mmdb'), test()->fallback),
+    fn () => new MaxMindDatabaseDetector(new Reader(__DIR__ . '/db/geoip2.mmdb'), test()->fallback),
     fn () => new IP2CountryDetector(config('geo.detectors.ip2c.endpoint'), test()->fallback),
     fn () => new StaticDetector(test()->fallback),
 ]);

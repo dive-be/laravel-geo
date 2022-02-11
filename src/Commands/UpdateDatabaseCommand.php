@@ -71,7 +71,7 @@ class UpdateDatabaseCommand extends Command
 
         $fileName = Str::after($response->header('Content-Disposition'), 'filename=');
 
-        $this->fs->put($dir.'/'.$fileName, $response->body());
+        $this->fs->put($dir . '/' . $fileName, $response->body());
 
         return Collection::make([$dir, $fileName]);
     }
@@ -88,13 +88,13 @@ class UpdateDatabaseCommand extends Command
 
         $tar->extractTo(
             $dir,
-            $relative = Str::afterLast($database->getPath(), '/').'/'.$database->getFilename(),
+            $relative = Str::afterLast($database->getPath(), '/') . '/' . $database->getFilename(),
         );
 
         if ($this->fs->exists($writeTo)) {
             $this->fs->delete($writeTo);
         }
 
-        $this->fs->move($dir.'/'.$relative, $writeTo);
+        $this->fs->move($dir . '/' . $relative, $writeTo);
     }
 }

@@ -28,7 +28,7 @@ class GeoServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/geo.php', 'geo');
+        $this->mergeConfigFrom(__DIR__ . '/../config/geo.php', 'geo');
 
         $this->app->afterResolving(DetectGeoLocation::class, static function ($middleware, Application $app) {
             $middleware->setDetectorResolver(fn () => $app->make(Detector::class));
@@ -70,7 +70,7 @@ class GeoServiceProvider extends ServiceProvider
         $config = 'geo.php';
 
         $this->publishes([
-            __DIR__.'/../config/'.$config => $this->app->configPath($config),
+            __DIR__ . '/../config/' . $config => $this->app->configPath($config),
         ], 'config');
     }
 }

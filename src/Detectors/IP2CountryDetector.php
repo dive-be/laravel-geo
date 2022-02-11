@@ -6,7 +6,10 @@ use Dive\Geo\Contracts\Detector;
 
 class IP2CountryDetector implements Detector
 {
-    public function __construct(private string $endpoint, private string $fallback) {}
+    public function __construct(
+        private string $endpoint,
+        private string $fallback,
+    ) {}
 
     public function detect(string $ipAddress): string
     {

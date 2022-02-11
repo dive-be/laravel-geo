@@ -12,7 +12,10 @@ class MaxMindWebDetector implements Detector
 {
     private Closure $log;
 
-    public function __construct(private Client $client, private string $fallback) {}
+    public function __construct(
+        private Client $client,
+        private string $fallback,
+    ) {}
 
     public function detect(string $ipAddress): string
     {

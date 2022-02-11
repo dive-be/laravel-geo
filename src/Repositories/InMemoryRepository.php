@@ -9,7 +9,9 @@ class InMemoryRepository implements Repository
 {
     private ?Transformer $transformer = null;
 
-    public function __construct(private ?string $countryCode = null) {}
+    public function __construct(
+        private ?string $countryCode = null,
+    ) {}
 
     public function get()
     {

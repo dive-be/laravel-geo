@@ -17,7 +17,9 @@ class CookieRepository implements Repository
 
     private ?Transformer $transformer = null;
 
-    public function __construct(private string $name) {}
+    public function __construct(
+        private string $name,
+    ) {}
 
     public function get()
     {

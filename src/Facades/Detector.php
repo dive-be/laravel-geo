@@ -17,7 +17,7 @@ class Detector extends Facade
         return $fake;
     }
 
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'geo.detector';
     }

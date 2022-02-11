@@ -3,7 +3,6 @@
 namespace Dive\Geo\Detectors;
 
 use Dive\Geo\Cache\CacheDetectorProxy;
-use Dive\Geo\Cache\DetectionCache;
 use Dive\Geo\Contracts\Detector;
 use GeoIp2\Database\Reader;
 use GeoIp2\WebService\Client;
@@ -21,7 +20,7 @@ class DetectorManager extends Manager implements Detector
         return $this->config(__FUNCTION__);
     }
 
-    public function getDefaultDriver()
+    public function getDefaultDriver(): string
     {
         return $this->config('detectors.driver');
     }
@@ -63,7 +62,7 @@ class DetectorManager extends Manager implements Detector
             return $detector;
         }
 
-        return new CacheDetectorProxy($this->container->make(DetectionCache::class), $detector);
+        return new CacheDetectorProxy($this->container['geo.cache'], $detector);
     }
 
     // region CONTRACT

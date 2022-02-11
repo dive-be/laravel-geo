@@ -12,7 +12,10 @@ class MaxMindDatabaseDetector implements Detector
 {
     private Closure $log;
 
-    public function __construct(private Reader $reader, private string $fallback) {}
+    public function __construct(
+        private Reader $reader,
+        private string $fallback,
+    ) {}
 
     public function detect(string $ipAddress): string
     {

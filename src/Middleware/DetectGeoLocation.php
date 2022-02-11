@@ -10,7 +10,9 @@ class DetectGeoLocation
 {
     private Closure $detector;
 
-    public function __construct(private Repository $repo) {}
+    public function __construct(
+        private Repository $repo,
+    ) {}
 
     public function handle(Request $request, Closure $next)
     {

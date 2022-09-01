@@ -1,3 +1,5 @@
+<p><img src="https://github.com/dive-be/laravel-geo/blob/master/art/socialcard.png?raw=true" alt="Social Card of Laravel Dry Requests" style="max-width:830px"></p>
+
 # 🌍 - Translate IP addresses into geo locations
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dive-be/laravel-geo.svg?style=flat-square)](https://packagist.org/packages/dive-be/laravel-geo)
@@ -8,7 +10,7 @@ This package will assist you in grabbing a visitor's country.
 
 ## What problem does this package solve?
 
-Depending on the context of your application, you may want to display content tailored for a specific country/region of the visitor. This package will help with providing a sensible default using IP addresses if it is a first time visit for a user. 
+Depending on the context of your application, you may want to display content tailored for a specific country/region of the visitor. This package will help with providing a sensible default using IP addresses if it is a first time visit for a user.
 
 ## Installation
 
@@ -109,7 +111,7 @@ First, you will have to decide which service to use.
 
 ### Detectors
 
-When you've decided, set the `GEO_DETECTORS_DRIVER` environment variable to the correct value. 
+When you've decided, set the `GEO_DETECTORS_DRIVER` environment variable to the correct value.
 Refer to the configuration file for the right values.
 
 #### GeoIP2 Databases
@@ -120,7 +122,7 @@ Refer to the configuration file for the right values.
 
 #### Auto updating local database
 
-IP address ranges tend to become out of date over time. 
+IP address ranges tend to become out of date over time.
 Therefore, this package also provides a convenient update command which you can schedule to run once a week to keep everything fresh.
 
 ```php
@@ -146,7 +148,7 @@ This is a free service. You don't have to configure anything.
 
 #### Static
 
-The static driver is meant for usage during local development and testing. 
+The static driver is meant for usage during local development and testing.
 You should not use it in any other environment as it is always going to return the fallback value.
 
 ### Detecting a visitor's geo location

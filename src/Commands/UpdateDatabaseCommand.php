@@ -13,16 +13,16 @@ use PharFileInfo;
 use RecursiveIteratorIterator;
 use RuntimeException;
 
-class UpdateDatabaseCommand extends Command
+final class UpdateDatabaseCommand extends Command
 {
     protected $description = 'Update the GeoIP2 database.';
 
     protected $signature = 'geo:update';
 
     public function __construct(
-        private Repository $config,
-        private Filesystem $fs,
-        private Factory $http,
+        private readonly Repository $config,
+        private readonly Filesystem $fs,
+        private readonly Factory $http,
     ) {
         parent::__construct();
     }
@@ -52,7 +52,7 @@ class UpdateDatabaseCommand extends Command
         return self::SUCCESS;
     }
 
-    private function cleanUp(string $directory)
+    private function cleanUp(string $directory): void
     {
         $this->fs->deleteDirectory($directory);
     }
@@ -76,7 +76,7 @@ class UpdateDatabaseCommand extends Command
         return Collection::make([$dir, $fileName]);
     }
 
-    private function replaceDatabase(Collection $tuple, string $writeTo)
+    private function replaceDatabase(Collection $tuple, string $writeTo): void
     {
         [$dir] = $tuple;
         $tar = new PharData($tuple->join('/'));

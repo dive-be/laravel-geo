@@ -5,7 +5,7 @@ namespace Dive\Geo\Commands;
 use Dive\Geo\Cache\DetectionCache;
 use Illuminate\Console\Command;
 
-class ClearCacheCommand extends Command
+final class ClearCacheCommand extends Command
 {
     protected $description = 'Clear the cache of detected geo locations.';
 

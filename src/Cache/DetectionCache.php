@@ -2,15 +2,14 @@
 
 namespace Dive\Geo\Cache;
 
-use Closure;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Cache\Repository;
 
 class DetectionCache
 {
-    private Repository $cache;
+    private readonly Repository $cache;
 
-    private int $ttl;
+    private readonly int $ttl;
 
     public function __construct(CacheManager $cache, int $ttl, ?string $tag)
     {
@@ -23,7 +22,7 @@ class DetectionCache
         $this->cache->flush();
     }
 
-    public function remember(string $ipAddress, Closure $callback): string
+    public function remember(string $ipAddress, \Closure $callback): string
     {
         return $this->cache->remember($ipAddress, $this->ttl, $callback);
     }

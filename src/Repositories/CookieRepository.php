@@ -7,7 +7,7 @@ use Dive\Geo\Contracts\Repository;
 use Dive\Geo\Contracts\Transformer;
 use Illuminate\Support\Str;
 
-class CookieRepository implements Repository
+final class CookieRepository implements Repository
 {
     private Closure $cookie;
 
@@ -17,11 +17,9 @@ class CookieRepository implements Repository
 
     private ?Transformer $transformer = null;
 
-    public function __construct(
-        private string $name,
-    ) {}
+    public function __construct(private readonly string $name) {}
 
-    public function get()
+    public function get(): mixed
     {
         $countryCode = $this->value();
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Fakes;
 
-class Country
+final readonly class Country
 {
     public function __construct(public string $name) {}
 }

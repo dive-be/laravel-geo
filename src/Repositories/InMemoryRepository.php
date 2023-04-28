@@ -5,15 +5,13 @@ namespace Dive\Geo\Repositories;
 use Dive\Geo\Contracts\Repository;
 use Dive\Geo\Contracts\Transformer;
 
-class InMemoryRepository implements Repository
+final class InMemoryRepository implements Repository
 {
     private ?Transformer $transformer = null;
 
-    public function __construct(
-        private ?string $countryCode = null,
-    ) {}
+    public function __construct(private ?string $countryCode = null) {}
 
-    public function get()
+    public function get(): mixed
     {
         if (is_null($this->transformer) || is_null($this->countryCode)) {
             return $this->countryCode;

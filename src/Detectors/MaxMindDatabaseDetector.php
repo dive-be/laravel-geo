@@ -8,14 +8,11 @@ use GeoIp2\Database\Reader;
 use GeoIp2\Exception\AddressNotFoundException;
 use MaxMind\Db\Reader\InvalidDatabaseException;
 
-class MaxMindDatabaseDetector implements Detector
+final class MaxMindDatabaseDetector implements Detector
 {
     private Closure $log;
 
-    public function __construct(
-        private Reader $reader,
-        private string $fallback,
-    ) {}
+    public function __construct(private readonly Reader $reader, private readonly string $fallback) {}
 
     public function detect(string $ipAddress): string
     {

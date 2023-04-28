@@ -15,9 +15,9 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
-class GeoServiceProvider extends ServiceProvider
+final class GeoServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             $this->registerCommands();
@@ -25,7 +25,7 @@ class GeoServiceProvider extends ServiceProvider
         }
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/geo.php', 'geo');
 
@@ -55,7 +55,7 @@ class GeoServiceProvider extends ServiceProvider
         $this->callAfterResolving('router', $this->registerMiddleware(...));
     }
 
-    private function registerCommands()
+    private function registerCommands(): void
     {
         $this->commands([
             ClearCacheCommand::class,
@@ -64,7 +64,7 @@ class GeoServiceProvider extends ServiceProvider
         ]);
     }
 
-    private function registerConfig()
+    private function registerConfig(): void
     {
         $config = 'geo.php';
 
@@ -73,12 +73,12 @@ class GeoServiceProvider extends ServiceProvider
         ], 'config');
     }
 
-    private function registerMiddleware(Router $router)
+    private function registerMiddleware(Router $router): void
     {
         $router->aliasMiddleware('geo', DetectGeoLocation::class);
     }
 
-    private function registerMiddlewareResolvers(DetectGeoLocation $middleware, Application $app)
+    private function registerMiddlewareResolvers(DetectGeoLocation $middleware, Application $app): void
     {
         $middleware->setDetectorResolver(static fn () => $app['geo.detector']);
     }

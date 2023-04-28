@@ -4,7 +4,7 @@ namespace Dive\Geo\Commands;
 
 use Illuminate\Console\Command;
 
-class InstallPackageCommand extends Command
+final class InstallPackageCommand extends Command
 {
     protected $description = 'Install geo.';
 

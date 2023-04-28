@@ -7,18 +7,18 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static mixed get()
- * @method static bool isEmpty()
- * @method static bool isNotEmpty()
- * @method static void put(string $countryCode)
+ * @method static bool  isEmpty()
+ * @method static bool  isNotEmpty()
+ * @method static void  put(string $countryCode)
  */
-class Geo extends Facade
+final class Geo extends Facade
 {
     public static function fake(): InMemoryRepository
     {
-        $transformer = static::$app['config']['geo.transformer'];
+        $transformer = self::$app['config']['geo.transformer'];
 
-        static::swap($fake = (new InMemoryRepository())->setTransformer(
-            class_exists($transformer) ? static::$app->make($transformer) : null
+        self::swap($fake = (new InMemoryRepository())->setTransformer(
+            class_exists($transformer) ? self::$app->make($transformer) : null
         ));
 
         return $fake;

@@ -4,9 +4,9 @@ namespace Tests\Fakes;
 
 use Dive\Geo\Contracts\Transformer;
 
-class CountryTransformer implements Transformer
+final readonly class CountryTransformer implements Transformer
 {
-    public function transform(string $countryCode)
+    public function transform(string $countryCode): Country
     {
         return new Country($countryCode);
     }

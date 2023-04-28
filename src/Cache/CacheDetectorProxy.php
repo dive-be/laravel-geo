@@ -4,12 +4,9 @@ namespace Dive\Geo\Cache;
 
 use Dive\Geo\Contracts\Detector;
 
-class CacheDetectorProxy implements Detector
+final readonly class CacheDetectorProxy implements Detector
 {
-    public function __construct(
-        private DetectionCache $cache,
-        private Detector $detector,
-    ) {}
+    public function __construct(private DetectionCache $cache, private Detector $detector) {}
 
     public function detect(string $ipAddress): string
     {

@@ -8,14 +8,11 @@ use GeoIp2\Exception\AddressNotFoundException;
 use GeoIp2\Exception\GeoIp2Exception;
 use GeoIp2\WebService\Client;
 
-class MaxMindWebDetector implements Detector
+final class MaxMindWebDetector implements Detector
 {
     private Closure $log;
 
-    public function __construct(
-        private Client $client,
-        private string $fallback,
-    ) {}
+    public function __construct(private readonly Client $client, private readonly string $fallback) {}
 
     public function detect(string $ipAddress): string
     {

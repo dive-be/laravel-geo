@@ -8,7 +8,7 @@ use GeoIp2\Database\Reader;
 use GeoIp2\WebService\Client;
 use Illuminate\Support\Manager;
 
-class DetectorManager extends Manager implements Detector
+final class DetectorManager extends Manager implements Detector
 {
     public function config(string $key): array|bool|int|string
     {

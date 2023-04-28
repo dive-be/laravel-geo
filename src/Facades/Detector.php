@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static void extend($driver, \Closure $callback)
  */
-class Detector extends Facade
+final class Detector extends Facade
 {
     public static function fake(): StaticDetector
     {
-        static::swap($fake = new StaticDetector(static::$app['config']['geo.fallback']));
+        self::swap($fake = new StaticDetector(self::$app['config']['geo.fallback']));
 
         return $fake;
     }

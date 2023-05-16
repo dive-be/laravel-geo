@@ -19,7 +19,7 @@ final class MaxMindDatabaseDetector implements Detector
         try {
             $record = $this->reader->country($ipAddress);
 
-            return $record->country->isoCode;
+            return $record->country->isoCode ?? $this->fallback;
         } catch (AddressNotFoundException) {
             return $this->fallback;
         } catch (InvalidDatabaseException $exception) {

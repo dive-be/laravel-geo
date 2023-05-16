@@ -19,7 +19,7 @@ final class MaxMindWebDetector implements Detector
         try {
             $record = $this->client->country($ipAddress);
 
-            return $record->country->isoCode;
+            return $record->country->isoCode ?? $this->fallback;
         } catch (AddressNotFoundException) {
             return $this->fallback;
         } catch (GeoIp2Exception $exception) {

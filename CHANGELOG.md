@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-geo` will be documented in this file.
 
+## 1.3.1 - 2023-05-16
+
+### Fixed
+
+- Use fallback if driver cannot determine country ISO
+
 ## 1.3.0 - 2023-04-28
 
 ### Added

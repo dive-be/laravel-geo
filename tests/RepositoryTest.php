@@ -4,53 +4,71 @@ namespace Tests;
 
 use Dive\Geo\Repositories\CookieRepository;
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\Fakes\Country;
 use Tests\Fakes\CountryTransformer;
 
-beforeEach(function () {
-    $this->cookieName = 'geo-test';
-    $this->repo = new CookieRepository($this->cookieName);
-    $this->turkey = 'TR';
-});
+final class RepositoryTest extends TestCase
+{
+    private const COOKIE = 'geo-test';
+    private const TURKEY = 'TR';
 
-it('can retrieve the current country', function () {
-    $this->repo->setCookieResolver(fn ($name) => $this->turkey);
+    private CookieRepository $repo;
 
-    $country = $this->repo->get();
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-    expect($country)->toBe($this->turkey);
-});
+        $this->repo = new CookieRepository(self::COOKIE);
+    }
 
-it('can transform the country after retrieval', function () {
-    $this->repo
-        ->setCookieResolver(fn ($name) => $this->turkey)
-        ->setTransformer(new CountryTransformer());
+    #[Test]
+    public function can_retrieve_the_current_country(): void
+    {
+        $this->repo->setCookieResolver(static fn () => self::TURKEY);
 
-    $country = $this->repo->get();
+        $country = $this->repo->get();
 
-    expect($country)->toBeInstanceOf(Country::class);
-    expect($country->name)->toBe($this->turkey);
-});
+        $this->assertSame(self::TURKEY, $country);
+    }
 
-it('can determine emptiness', function () {
-    $this->repo->setCookieResolver(fn ($name) => $this->turkey);
+    #[Test]
+    public function can_transform_the_country_after_retrieval(): void
+    {
+        $this->repo
+            ->setCookieResolver(static fn () => self::TURKEY)
+            ->setTransformer(new CountryTransformer());
 
-    expect($this->repo->isEmpty())->toBeFalse();
-    expect($this->repo->isNotEmpty())->toBeTrue();
-});
+        $country = $this->repo->get();
 
-it('can put a new value', function () {
-    $jar = Mockery::mock();
-    $jar->shouldReceive('forever')->withArgs([$this->cookieName, $swiss = 'CH']);
-    $jar->shouldReceive('queue');
+        $this->assertInstanceOf(Country::class, $country);
+        $this->assertSame(self::TURKEY, $country->name);
+    }
 
-    $this->repo
-        ->setCookieJarResolver(fn () => $jar)
-        ->setCookieResolver(fn () => null);
+    #[Test]
+    public function can_determine_emptiness(): void
+    {
+        $this->repo->setCookieResolver(static fn () => self::TURKEY);
 
-    expect($this->repo->get())->toBeNull();
+        $this->assertFalse($this->repo->isEmpty());
+        $this->assertTrue($this->repo->isNotEmpty());
+    }
 
-    $this->repo->put($swiss);
+    #[Test]
+    public function can_put_a_new_value(): void
+    {
+        $jar = Mockery::mock();
+        $jar->shouldReceive('forever')->withArgs([self::COOKIE, $switzerland = 'CH']);
+        $jar->shouldReceive('queue');
 
-    expect($this->repo->get())->toBe($swiss);
-});
+        $this->repo
+            ->setCookieJarResolver(static fn () => $jar)
+            ->setCookieResolver(static fn () => null);
+
+        $this->assertNull($this->repo->get());
+
+        $this->repo->put($switzerland);
+
+        $this->assertSame($switzerland, $this->repo->get());
+    }
+}

@@ -2,14 +2,22 @@
 
 namespace Tests;
 
-use function Pest\Laravel\artisan;
+use PHPUnit\Framework\Attributes\Test;
 
-afterEach(function () {
-    file_exists(config_path('geo.php')) && unlink(config_path('geo.php'));
-});
+final class InstallPackageTest extends TestCase
+{
+    protected function tearDown(): void
+    {
+        parent::tearDown();
 
-it('copies the config', function () {
-    artisan('geo:install')->execute();
+        file_exists(config_path('geo.php')) && unlink(config_path('geo.php'));
+    }
 
-    expect(file_exists(config_path('geo.php')))->toBeTrue();
-});
+    #[Test]
+    public function it_copies_the_config(): void
+    {
+        $this->artisan('geo:install')->execute();
+
+        $this->assertTrue(file_exists(config_path('geo.php')));
+    }
+}

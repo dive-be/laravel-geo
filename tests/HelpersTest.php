@@ -3,15 +3,23 @@
 namespace Tests;
 
 use Dive\Geo\Facades\Geo;
+use PHPUnit\Framework\Attributes\Test;
 
-test('geo can put a new country', function () {
-    expect(Geo::get())->not->toBe($iso = 'CZ');
+final class HelpersTest extends TestCase
+{
+    #[Test]
+    public function geo_can_put_a_new_country(): void
+    {
+        $this->assertNotEquals($iso = 'CZ', Geo::get());
 
-    geo($iso);
+        geo($iso);
 
-    expect(Geo::get())->toBe($iso);
-});
+        $this->assertEquals($iso, Geo::get());
+    }
 
-test('geo can retrieve an instance', function () {
-    expect(geo())->toBe(app('geo'));
-});
+    #[Test]
+    public function geo_can_retrieve_an_instance(): void
+    {
+        $this->assertSame(geo(), app('geo'));
+    }
+}

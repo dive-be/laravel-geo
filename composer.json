@@ -19,22 +19,21 @@
         }
     ],
     "require": {
-        "php": "~8.2",
-        "illuminate/cache": "^10.0",
-        "illuminate/console": "^10.0",
-        "illuminate/contracts": "^10.0",
-        "illuminate/cookie": "^10.0",
-        "illuminate/http": "^10.0",
-        "illuminate/support": "^10.0"
+        "php": "~8.3",
+        "illuminate/cache": "^11.0",
+        "illuminate/console": "^11.0",
+        "illuminate/contracts": "^11.0",
+        "illuminate/cookie": "^11.0",
+        "illuminate/http": "^11.0",
+        "illuminate/support": "^11.0"
     },
     "require-dev": {
         "ext-curl": "*",
-        "friendsofphp/php-cs-fixer": "^3.16",
-        "geoip2/geoip2": "^2.13",
-        "nunomaduro/larastan": "^2.6",
-        "orchestra/testbench":"^8.5",
-        "pestphp/pest": "^2.5",
-        "pestphp/pest-plugin-laravel": "^2.0"
+        "geoip2/geoip2": "^3.0",
+        "larastan/larastan": "^2.0",
+        "laravel/pint": "^1.0",
+        "orchestra/testbench":"^9.0",
+        "phpunit/phpunit": "^11.0"
     },
     "suggest": {
         "ext-curl": "Required for sending requests to the IP 2 Country web services.",
@@ -55,8 +54,8 @@
     },
     "scripts": {
         "larastan": "vendor/bin/phpstan analyse --memory-limit=2G",
-        "format": "vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --allow-risky=yes",
-        "test": "vendor/bin/pest",
+        "format": "vendor/bin/pint",
+        "test": "vendor/bin/phpunit",
         "verify": "@composer larastan && composer test"
     },
     "config": {

@@ -3,6 +3,7 @@
 .vscode
 .php-cs-fixer.php
 .php-cs-fixer.cache
+.phpunit.cache/test-results
 .phpunit.result.cache
 build
 composer.lock

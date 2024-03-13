@@ -3,9 +3,9 @@
 namespace Tests;
 
 use Dive\Geo\GeoServiceProvider;
-use Orchestra\Testbench\TestCase as BaseTestCase;
+use Orchestra\Testbench\TestCase as TestCaseBase;
 
-class TestCase extends BaseTestCase
+abstract class TestCase extends TestCaseBase
 {
     protected function getPackageProviders($app): array
     {

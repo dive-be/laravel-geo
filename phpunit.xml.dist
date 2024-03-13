@@ -14,6 +14,12 @@
          cacheDirectory=".phpunit.cache"
          backupStaticProperties="false"
 >
+    <groups>
+        <exclude>
+            <group>network</group>
+        </exclude>
+    </groups>
+
     <testsuites>
         <testsuite name="Dive Test Suite">
             <directory suffix="Test.php">tests</directory>

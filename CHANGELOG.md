@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-geo` will be documented in this file.
 
+## 1.5.0 - 2024-05-05
+
+### Added
+
+- PHP 8.4 support
+- Laravel 12 support
+
+### Removed
+
+- PHP 8.3 support
+- Laravel 11 support
+
 ## 1.4.0 - 2024-03-13
 
 ### Added

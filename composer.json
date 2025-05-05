@@ -19,21 +19,21 @@
         }
     ],
     "require": {
-        "php": "~8.3",
-        "illuminate/cache": "^11.0",
-        "illuminate/console": "^11.0",
-        "illuminate/contracts": "^11.0",
-        "illuminate/cookie": "^11.0",
-        "illuminate/http": "^11.0",
-        "illuminate/support": "^11.0"
+        "php": "~8.4",
+        "illuminate/cache": "^12.0",
+        "illuminate/console": "^12.0",
+        "illuminate/contracts": "^12.0",
+        "illuminate/cookie": "^12.0",
+        "illuminate/http": "^12.0",
+        "illuminate/support": "^12.0"
     },
     "require-dev": {
         "ext-curl": "*",
         "geoip2/geoip2": "^3.0",
-        "larastan/larastan": "^2.0",
+        "larastan/larastan": "^3.0",
         "laravel/pint": "^1.0",
-        "orchestra/testbench":"^9.0",
-        "phpunit/phpunit": "^11.0"
+        "orchestra/testbench":"^10.0",
+        "phpunit/phpunit": "^12.0"
     },
     "suggest": {
         "ext-curl": "Required for sending requests to the IP 2 Country web services.",

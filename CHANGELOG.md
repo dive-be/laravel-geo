@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-geo` will be documented in this file.
 
-## 1.5.0 - 2024-05-05
+## 1.5.0 - 2025-05-05
 
 ### Added
 
